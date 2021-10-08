@@ -1,0 +1,40 @@
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+	.full{
+		margin-left:400px;
+		margin-top:45px;
+
+		}
+		h3{
+			margin-left:470px;
+			color:yellow;
+		}
+		.br{
+			margin:50px;
+			border:1px black;
+			border-style:solid;
+			background-color:blue;
+			color:#fff;
+		}
+		h3{
+			text-decoration:underline;
+		}
+		.bt{
+			margin-left:130px;
+		}
+</style>
+<body style="background-color:yellow;">
+<div class="br">
+	<h3>Update Task</h3>
+<form method="POST" action="">
+	{% csrf_token %}
+  <div class="full">
+	{{form}}
+	<br>
+	<br>
+	<input type="submit" class="btn btn-danger bt" name="Update Task">
+  </div>
+</form>
+</div>
+</body>
