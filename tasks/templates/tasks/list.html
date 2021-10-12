@@ -5,117 +5,115 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous"
   />
-
   <style>
-    a{
+    a {
       color: white;
     }
     .container {
-      background:green;
-      margin:100px;
-    
-
+      background: green;
+      margin: 100px;
     }
-    a:hover{
-      text-decoration:none;
-      color:white;
+    a:hover {
+      text-decoration: none;
+      color: white;
     }
     .xyz {
       margin-left: 400px;
       margin-top: 100px;
-      margin-bottom: 100px;
+      margin-bottom: 50px;
     }
     #bt {
       margin-top: 10px;
       margin-left: 70px;
     }
+
     .up {
       margin-left: 40px;
-      color:#fff;
+      color: #fff;
     }
     .bt1 {
       color: white;
     }
     h1 {
-      font-family:'Times New Roman', Times, serifa;
+      font-family: "Times New Roman", Times, serifa;
       text-align: center;
       margin-right: 100px;
       margin-top: 10px;
-      text-decoration:underline;
+      text-decoration: underline;
     }
     .cs {
       border-radius: 10px;
       color: white;
-      text-decoration:none;
-      margin-bottom:10px;
+      text-decoration: none;
+      margin-bottom: 10px;
     }
-    .csv{
-      text-decoration:none;
-      color:white;
-      
+    .csv {
+      text-decoration: none;
+      color: white;
     }
-    .btexport{
-      margin-left:450px;
-      margin-bottom:100px;
+    .btexport {
+      margin-left: 450px;
+      margin-bottom: 100px;
     }
-    .bt2{
-      margin-bottom:10px;
+    .bt2 {
+      margin-bottom: 10px;
+    }
+    .xyz1 {
+      margin-left: 400px;
+      margin-bottom: 50px;
+    }
+    .import {
+      color: white;
     }
   </style>
-<body style="background-color:blue;">
-  <div class="container">
-    <h1 class="text-decoration-underline">TODO LIST</h1>
-    <div class="xyz">
-      <form method="POST" action="/">
-        {% csrf_token %} {{form.title}}
-        <br />
-        <input
-          class="btn btn-danger"
-          id="bt"
-          type="submit"btn btn-secondary"
-          name="Create Task"
-        />
-      </form>
+  <body style="background-color: blue">
+    <div class="container">
+      <h1 class="text-decoration-underline">TODO LIST</h1>
+      <div class="xyz">
+        <form method="POST" action="/" enctype="multipart/form-data">
+          {% csrf_token %} {{form.title}}
+          <br />
+          <input class="btn btn-danger" id="bt" type="submit"btn btn-secondary"
+          name="Create Task" />
+        </form>
 
-      <div class="">
-        {% for task in task_list %}
-        <div class="up">
-          <input type="checkbox" class="form-check-input mt-0"> 
-          <button class="btn btn-warning bt1 bt2">
-            <a class="lk" href="{% url 'update_task' task.id %}">Update</a>
-          </button>
+        <div class="">
+          {% for task in task_list %}
+          <div class="up">
+            <!-- <input type="checkbox" class="form-check-input mt-0">  -->
+            <button class="btn btn-warning bt1 bt2">
+              <a class="lk" href="{% url 'update_task' task.id %}">Update</a>
+            </button>
 
-          <button class="btn btn-success bt1 bt2" style="margin-right:10px;">
-            <a class="lk" href="{% url 'deleteit' task.id %}">Delete</a>
-          </button>
+            <button class="btn btn-success bt1 bt2" style="margin-right: 10px">
+              <a class="lk" href="{% url 'deleteit' task.id %}">Delete</a>
+            </button>
 
-          {% if task.complete == True %}
-          <strike>{{task}}</strike>
-          {% else %}
-          <span>{{task}}</span>
-          {% endif %}
+            {% if task.complete == True %}
+            <strike>{{task}}</strike>
+            {% else %}
+            <span>{{task}}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
+      <div class="btexport">
+        <button type="submit" class="btn btn-primary cs">
+          <a class="csv" href="{% url 'export' %}">CSV EXPORT</a>
+        </button>
+      </div>
+      {% if task_list.has_previous %}
+      <a href="?page=1">firsr</a>
+      <a href="?page={{ task_list.previous_page_number }}"> previous </a>
+      {% endif %} Page {{ task_list.number }} of {{
+      task_list.paginator.num_pages }} {% if task_list.has_pages %}
+      <a href="?page={{ task_list.next_page_number }}">next</a>
+      <a href="?page={{ task_list.paginator.num_pages }}"> last </a>
+      {% endif %}
+      <button class="xyz1 btn btn-dark">
+        <a class="import" href="{% url 'import' %}">Import</a>
+      </button>
     </div>
-    <div class="btexport">
-    <button type="submit" class="btn btn-primary  cs">
-      <a class="csv"
-        href="{% url 'export' %}"
-        >CSV EXPORT</a
-      >
-    </button>
-  </div>
-  {% if task_list.has_previous %}
-		<a href="?page=1">firsr</a>
-		<a href="?page={{ task_list.previous_page_number }}"> previous </a>
-	{% endif %}
-	Page {{ task_list.number }} of {{ task_list.paginator.num_pages }}
-	{% if task_list.has_pages %}
-		 <a href="?page={{ task_list.next_page_number }}">next</a>
-		 <a href="?page={{ task_list.paginator.num_pages }}"> last </a>
-	{% endif %}
-
-  </div>
-</body>
+  </body>
 </html>

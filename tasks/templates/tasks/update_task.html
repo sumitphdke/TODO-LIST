@@ -27,7 +27,7 @@
 <body style="background-color:yellow;">
 <div class="br">
 	<h3>Update Task</h3>
-<form method="POST" action="">
+<form method="POST" action="" onsubmit="return confirm('are you want to Update')">
 	{% csrf_token %}
   <div class="full">
 	{{form}}
